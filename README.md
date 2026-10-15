@@ -1,6 +1,6 @@
-# 校园圈｜学生自由分享社区
+# Tenby 校园圈｜学生自由分享社区
 
-手机优先的校园社区，供学生分享日常、校园生活、学习经验、求助互助、吐槽建议、兴趣交友和其他话题。使用 Supabase 保存内容。
+Tenby 学生专属的手机优先校园社区，供学生分享日常、校园生活、学习经验、求助互助、吐槽建议、兴趣交友和其他话题。使用 Supabase 保存内容。
 
 ## 功能
 - 浏览通过审核的公开动态、按话题筛选
@@ -9,8 +9,8 @@
 - 管理后台登录、审核/拒绝/删除动态、处理举报
 
 ## 网站与后台
-- 网站： https://worker.yran9512.workers.dev
-- 管理后台： https://worker.yran9512.workers.dev/admin.html
+- 网站： https://1.yran9512.workers.dev
+- 管理后台： https://1.yran9512.workers.dev/admin.html
 
 ## 数据库与安全
 网页只使用 Supabase Publishable key（可公开的客户端 key），绝不要把 service_role/secret key 放进浏览器代码。
