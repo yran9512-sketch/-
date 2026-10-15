@@ -15,6 +15,7 @@
 <div class="topline"><div><strong id="welcome">管理员控制台</strong><div class="muted">审核社区动态、处理举报。删除动态会同时删除该动态相关举报。</div></div><div class="actions"><button id="reload" class="btn secondary">刷新数据</button><button id="logout" class="btn secondary">退出登录</button></div></div>
 <div id="msg" class="msg hidden" role="status"></div>
 <div class="columns"><section class="panel"><h2>动态审核 <span id="postCount" class="small"></span></h2><div id="posts"></div></section><section class="panel"><h2>举报处理 <span id="reportCount" class="small"></span></h2><div id="reports"></div></section></div>
+<section class="panel"><h2>评论审核 <span id="commentCount" class="small"></span></h2><div id="comments"></div></section>
 </section>
 <footer class="muted" style="text-align:center;padding:22px">Tenby 校园圈 · 请保护学生隐私，审核时勿公开他人联系方式或敏感信息。</footer>
 </main>
@@ -42,19 +43,29 @@ async function refreshAll(){
   const result=await Promise.race([
    Promise.all([
     supabase.from('posts').select('id,category,nickname,content,status,likes_count,created_at').order('created_at',{ascending:false}).limit(200),
-    supabase.from('reports').select('id,post_id,reason,status,created_at').order('created_at',{ascending:false}).limit(200)
+    supabase.from('reports').select('id,post_id,reason,status,created_at').order('created_at',{ascending:false}).limit(200),
+    supabase.from('comments').select('id,post_id,nickname,content,status,created_at').order('created_at',{ascending:false}).limit(200)
    ]),
    new Promise((_,reject)=>setTimeout(()=>reject(new Error('数据库请求超过 12 秒仍未响应，请检查网络或 Supabase API。')),12000))
   ]);
-  const [p,r]=result;
-  if(p.error||r.error){message('加载失败：'+(p.error?.message||r.error?.message||'请检查数据库权限'));return}
-  message('');renderPosts(p.data||[]);renderReports(r.data||[],p.data||[]);
+  const [p,r,c]=result;
+  if(p.error||r.error||c.error){message('加载失败：'+(p.error?.message||r.error?.message||c.error?.message||'请检查数据库权限'));return}
+  message('');renderPosts(p.data||[]);renderReports(r.data||[],p.data||[]);renderComments(c.data||[],p.data||[]);
  }catch(error){message('加载失败：'+(error?.message||'未知错误'));console.error('Supabase admin load failed:',error)}
 }
 function renderPosts(rows){$('#postCount').textContent='（'+rows.length+' 条）';$('#posts').innerHTML=rows.length?rows.map(p=>'<article class="item"><div class="item-head"><span class="name">'+esc(p.nickname||'匿名同学')+'</span><span class="tag">'+esc(p.category)+'</span><span class="tag '+esc(p.status)+'">'+esc(labelStatus(p.status))+'</span></div><p class="body">'+esc(p.content)+'</p><div class="small">'+new Date(p.created_at).toLocaleString()+' · 点赞 '+Number(p.likes_count||0)+'</div><div class="actions">'+(p.status!=='approved'?'<button class="btn" data-status="approved" data-id="'+p.id+'">审核通过</button>':'')+(p.status!=='rejected'?'<button class="btn secondary" data-status="rejected" data-id="'+p.id+'">拒绝</button>':'')+'<button class="btn danger" data-delete="'+p.id+'">删除</button></div></article>').join(''):'<div class="empty">暂无动态</div>';
 $('#posts').querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>changePostStatus(b.dataset.id,b.dataset.status));$('#posts').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deletePost(b.dataset.delete))}
 function renderReports(rows,posts){const map=new Map(posts.map(p=>[p.id,p]));$('#reportCount').textContent='（'+rows.length+' 条）';$('#reports').innerHTML=rows.length?rows.map(r=>{const p=map.get(r.post_id);return '<article class="item"><div class="item-head"><span class="tag '+esc(r.status)+'">'+esc(labelStatus(r.status))+'</span><span class="small">'+new Date(r.created_at).toLocaleString()+'</span></div><p class="body"><strong>举报原因：</strong>'+esc(r.reason)+'</p>'+(p?'<p class="body"><strong>相关帖子：</strong>'+esc(p.nickname||'匿名同学')+' · '+esc(p.content)+'</p>':'<p class="small">相关帖子可能已删除</p>')+'<div class="actions">'+(r.status!=='reviewed'?'<button class="btn secondary" data-report-status="reviewed" data-id="'+r.id+'">标记已查看</button>':'')+(r.status!=='dismissed'?'<button class="btn secondary" data-report-status="dismissed" data-id="'+r.id+'">关闭举报</button>':'')+'</div></article>'}).join(''):'<div class="empty">暂无举报</div>';
 $('#reports').querySelectorAll('[data-report-status]').forEach(b=>b.onclick=()=>changeReportStatus(b.dataset.id,b.dataset.reportStatus))}
+function renderComments(rows,posts){
+ const postMap=new Map(posts.map(p=>[p.id,p]));
+ $('#commentCount').textContent='（'+rows.length+' 条）';
+ $('#comments').innerHTML=rows.length?rows.map(c=>{const p=postMap.get(c.post_id);return '<article class="item"><div class="item-head"><span class="name">'+esc(c.nickname||'匿名同学')+'</span><span class="tag '+esc(c.status)+'">'+esc(labelStatus(c.status))+'</span><span class="small">'+new Date(c.created_at).toLocaleString()+'</span></div><p class="body">'+esc(c.content)+'</p>'+(p?'<p class="small">所属动态：'+esc(p.nickname||'匿名同学')+' · '+esc(p.content.slice(0,140))+'</p>':'<p class="small">所属动态可能已删除</p>')+'<div class="actions">'+(c.status!=='approved'?'<button class="btn" data-comment-status="approved" data-id="'+c.id+'">审核通过</button>':'')+(c.status!=='rejected'?'<button class="btn secondary" data-comment-status="rejected" data-id="'+c.id+'">拒绝</button>':'')+'<button class="btn danger" data-comment-delete="'+c.id+'">删除</button></div></article>'}).join(''):'<div class="empty">暂无评论</div>';
+ $('#comments').querySelectorAll('[data-comment-status]').forEach(b=>b.onclick=()=>changeCommentStatus(b.dataset.id,b.dataset.commentStatus));
+ $('#comments').querySelectorAll('[data-comment-delete]').forEach(b=>b.onclick=()=>deleteComment(b.dataset.commentDelete));
+}
+async function changeCommentStatus(id,status){message('正在保存…');const {error}=await supabase.from('comments').update({status}).eq('id',id);if(error){message('操作失败：'+error.message);return}await refreshAll()}
+async function deleteComment(id){if(!confirm('确定删除这条评论吗？此操作无法恢复。'))return;message('正在删除…');const {error}=await supabase.from('comments').delete().eq('id',id);if(error){message('删除失败：'+error.message);return}await refreshAll()}
 async function changePostStatus(id,status){message('正在保存…');const {error}=await supabase.from('posts').update({status}).eq('id',id);if(error){message('操作失败：'+error.message);return}await refreshAll()}
 async function deletePost(id){if(!confirm('确定删除这条帖子吗？相关举报也会一并删除，且无法恢复。'))return;message('正在删除…');const {error}=await supabase.rpc('admin_delete_post',{p_post_id:id});if(error){message('删除失败：'+error.message);return}await refreshAll()}
 async function changeReportStatus(id,status){message('正在更新举报…');const {error}=await supabase.from('reports').update({status}).eq('id',id);if(error){message('操作失败：'+error.message);return}await refreshAll()}
