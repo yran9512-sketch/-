@@ -2,12 +2,98 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f4efff"><meta name="description" content="Tenby 校园圈——Tenby 学生分享校园生活、交流学习、互相帮助的社区">
+<meta name="theme-color" content="#1d3f33"><meta name="description" content="Tenby 校园圈——Tenby 学生分享校园生活、交流学习、互相帮助的社区">
 <title>Tenby 校园圈 · 学生自由分享社区</title>
 <style>
 :root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#332a35;background:#fff8fb;font-synthesis:none}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#ffe6f0 0,#fff8fb 42%,#fff 100%);min-height:100vh}button,input,textarea,select{font:inherit}button{cursor:pointer}.wrap{max-width:780px;margin:auto;padding:22px 16px 44px}.hero{position:relative;overflow:hidden;border-radius:28px;padding:28px 24px 26px;background:linear-gradient(135deg,#f9c9dd,#fbe4ed 54%,#fff0f5);box-shadow:0 14px 40px #e8a5c51f}.top{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:16px;background:#fff9;color:#d34b86;display:grid;place-items:center;font-size:27px}.brand h1{font-size:22px;margin:0}.brand small{letter-spacing:2px;color:#875b74;font-size:10px}.lang-switch{border:1px solid #fff9;border-radius:12px;padding:8px 9px;background:#fff;color:#79566b;font-size:12px;max-width:118px}.pill{margin-left:auto;border:1px solid #fff9;border-radius:99px;padding:7px 10px;font-size:12px;color:#85526d}.hero h2{font-size:clamp(26px,5vw,38px);line-height:1.38;margin:28px 0 8px;letter-spacing:-1px}.hero h2 em{font-style:normal;color:#c3427d}.hero p{color:#76596b;margin:0 0 22px}.cta,.submit{border:0;border-radius:14px;padding:13px 17px;background:#d94f8b;color:white;font-weight:700;box-shadow:0 7px 18px #d94f8b30}.section{display:flex;justify-content:space-between;align-items:end;margin:28px 2px 14px}.section small{color:#c04b81}.section h2{margin:4px 0 0;font-size:23px}.refresh{border:1px solid #f1dbe5;background:#fff;border-radius:12px;padding:10px 13px}.tools{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:15px}.tabs{display:flex;gap:7px;flex-wrap:wrap}.tab{border:1px solid #f1dbe5;background:#fff;border-radius:99px;padding:8px 13px;color:#795d6e;font-size:13px}.tab.active{background:#d94f8b;color:#fff;border-color:#d94f8b}.status{font-size:11px;color:#987e8c}.status.ok{color:#23865a}.notice{padding:12px 14px;border-radius:12px;background:#fff0f5;border:1px solid #f7d7e5;color:#8b3c63;font-size:13px;margin:12px 0}.compose,.post,.empty{background:#fff;border:1px solid #f3e4eb;border-radius:20px;padding:18px;margin-bottom:14px;box-shadow:0 8px 25px #8d48680a}.compose h3{margin:0 0 16px}.compose label{display:block;font-size:13px;font-weight:650;margin:13px 0;color:#64485a}.compose input,.compose select,.compose textarea{display:block;width:100%;margin-top:7px;border:1px solid #ead7e1;border-radius:12px;padding:12px;background:#fffafd;outline-color:#d94f8b}.compose textarea{resize:vertical;min-height:105px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:15px;font-size:12px;color:#9b8491}.post-head{display:flex;align-items:center;gap:10px}.avatar{width:42px;height:42px;border-radius:14px;background:#fff0f6;display:grid;place-items:center;font-size:21px}.author{display:grid;gap:4px}.author strong{font-size:14px}.author small{font-size:11px;color:#a58d9b}.cat{margin-left:auto;background:#fff1f6;color:#c34a80;border-radius:99px;padding:6px 9px;font-size:11px;white-space:nowrap}.content{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8;font-size:15px;margin:16px 1px}.actions{display:flex;gap:18px;border-top:1px solid #f7edf2;padding-top:12px}.action{border:0;background:transparent;color:#967c8c;display:flex;align-items:center;gap:6px;padding:3px;font-size:12px}.action.liked{color:#d94f8b}.empty{text-align:center;padding:34px 14px;color:#a28a98}.empty strong{display:block;color:#795a6d;margin:8px}.footer{text-align:center;padding:24px 0;color:#ad93a1;font-size:12px;line-height:1.8}.footer strong{color:#d94f8b}.comments{margin-top:12px;padding-top:12px;border-top:1px solid #f7edf2}.comments-title{font-weight:700;font-size:14px;margin-bottom:10px;color:#79566b}.comment-item{padding:10px 0;border-bottom:1px solid #f7edf2}.comment-item strong{font-size:12px;color:#79566b}.comment-item p{margin:5px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;line-height:1.65}.comment-form{display:grid;gap:8px;margin-top:12px}.comment-form input,.comment-form textarea{width:100%;border:1px solid #ead7e1;border-radius:10px;padding:10px;background:#fffafd}.comment-form textarea{min-height:76px;resize:vertical}.comment-help{font-size:11px;color:#9b8491;margin:8px 0 0}.comment-submit{justify-self:start;border:0;border-radius:10px;padding:10px 13px;background:#d94f8b;color:white;font-weight:650}.comment-submit:disabled{opacity:.6}[hidden]{display:none!important}@media(max-width:500px){.wrap{padding:12px 11px 30px}.hero{padding:22px 18px;border-radius:22px}.pill{font-size:10px}.compose,.post{padding:15px}.actions{justify-content:space-between;gap:6px}.hero h2{margin-top:22px}}
 /* Tenby mobile-first refinements */
 html{scroll-behavior:smooth;scroll-padding-top:16px}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #a84277;outline-offset:2px}.cta,.submit,.refresh,.tab,.action{min-height:40px}.tabs{max-width:100%;overflow-x:auto;flex-wrap:nowrap;padding:2px 1px 7px;scrollbar-width:thin}.tab{flex:0 0 auto}.brand{min-width:0}.brand small{display:block;letter-spacing:1px;line-height:1.5}.pill{white-space:nowrap}.status{flex-shrink:0}.compose{scroll-margin-top:12px}@media(max-width:500px){.top{gap:8px;flex-wrap:wrap}.brand{flex:1 1 calc(100% - 64px)}.lang-switch{order:3;max-width:130px}.pill{margin-left:0;order:4}.hero h2{font-size:29px;letter-spacing:-.5px}.hero p{font-size:14px;line-height:1.7}.cta{width:100%;min-height:46px}.section{align-items:center}.section h2{font-size:21px}.tools{align-items:flex-start}.tabs{width:100%;order:1}.status{order:2}.actions{gap:12px}.action{min-height:42px}.row{align-items:flex-start;flex-direction:column}.row>div{width:100%;display:flex;gap:8px}.row button{flex:1}.compose input,.compose select,.compose textarea{font-size:16px}}
+
+/* Tenby visual refresh — calm editorial campus style */
+:root{color-scheme:light;font-family:Inter,"Aptos",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#23352e;background:#f5f5ef;font-synthesis:none;--ink:#23352e;--muted:#718078;--line:#e3e7df;--paper:#fffefa;--canvas:#f5f5ef;--green:#285344;--green-dark:#1d3f33;--sage:#e7eee6;--clay:#b86649;--clay-soft:#f5e9e2;--shadow:0 12px 34px rgba(31,52,43,.055)}
+html{background:var(--canvas);scroll-behavior:smooth}
+body{background:var(--canvas);color:var(--ink);letter-spacing:-.01em}
+.wrap{max-width:860px;padding:24px 22px 54px}
+.hero{background:var(--green-dark);color:#f8f8f1;border:1px solid #244a3d;border-radius:24px;padding:26px 28px 30px;box-shadow:0 18px 42px rgba(29,63,51,.12)}
+.top{gap:13px}
+.logo{width:44px;height:44px;border-radius:13px;background:#ffffff12;color:#e6c7a6;border:1px solid #ffffff20;font-size:23px}
+.brand h1{font-size:21px;font-weight:720;letter-spacing:-.045em;color:#fffefa}
+.brand small{color:#c4d4ca;letter-spacing:1.8px;font-size:9px}
+.pill{border:1px solid #ffffff2b;color:#d9e4dc;background:#ffffff08;padding:7px 11px}
+.lang-switch{background:#fffefa;border:1px solid #dce4dc;border-radius:10px;color:#334c40;padding:9px 10px}
+.hero h2{font-size:clamp(29px,5.2vw,43px);line-height:1.2;letter-spacing:-.055em;font-weight:760;margin:38px 0 13px;color:#fffefa}
+.hero h2 em{color:#e6c7a6}
+.hero p{max-width:480px;color:#cbd8cf;line-height:1.8;margin-bottom:23px;font-size:14px}
+.cta,.submit{background:#e6c7a6;color:#24392f;border-radius:11px;padding:12px 17px;box-shadow:none;font-weight:750;transition:transform .16s ease,background .16s ease}
+.cta:hover,.submit:hover{background:#f0d7bd;transform:translateY(-1px)}
+.section{margin:34px 2px 16px;align-items:center}
+.section small{color:var(--clay);font-size:10px;letter-spacing:1.8px;font-weight:750}
+.section h2{font-size:24px;letter-spacing:-.045em;color:var(--ink);font-weight:750}
+.refresh{background:var(--paper);border:1px solid var(--line);color:#42574d;border-radius:10px;padding:10px 13px;box-shadow:none}
+.refresh:hover{background:#edf1e9;border-color:#cbd7ca}
+.tools{gap:12px;margin-bottom:18px}
+.tabs{gap:7px}
+.tab{background:transparent;border:1px solid #dfe4dc;border-radius:9px;padding:8px 12px;color:#5d6d64;font-size:12px;font-weight:600;transition:all .15s ease}
+.tab:hover{border-color:#aebeb0;color:var(--green)}
+.tab.active{background:var(--green);border-color:var(--green);color:#fffefa}
+.status{color:#7e8981;font-size:11px}
+.status.ok{color:#347957}
+.notice{background:#f8eee4;border:1px solid #ead7c4;color:#85543c;border-radius:11px}
+.compose,.post,.empty{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+.compose h3{font-size:18px;letter-spacing:-.03em;color:var(--ink)}
+.compose label{color:#43584c;font-size:12px;font-weight:700}
+.compose input,.compose select,.compose textarea{border:1px solid #dce3d9;border-radius:10px;background:#fbfcf8;color:var(--ink);padding:12px;outline-color:var(--green)}
+.compose input:focus,.compose select:focus,.compose textarea:focus,.comment-form input:focus,.comment-form textarea:focus{border-color:#729381;box-shadow:0 0 0 3px #28534412;outline:none}
+.row{color:#7b887f}
+.post{transition:box-shadow .18s ease,border-color .18s ease}
+.post:hover{border-color:#d5ded3;box-shadow:0 15px 38px rgba(31,52,43,.075)}
+.avatar{background:var(--sage);color:var(--green);border-radius:12px;font-size:19px}
+.author strong{color:#293b32;font-size:14px;font-weight:720}
+.author small{color:#859087}
+.cat{background:var(--clay-soft);color:#9d573d;border-radius:7px;padding:6px 9px;font-weight:650}
+.content{color:#34463c;line-height:1.85;font-size:15px;letter-spacing:0}
+.actions{border-top:1px solid #edf0e9;gap:20px}
+.action{color:#738077;border-radius:7px;padding:5px 7px;transition:background .15s,color .15s}
+.action:hover{background:#f0f3ed;color:var(--green)}
+.action.liked{color:var(--clay)}
+.empty{color:#78867c}
+.empty strong{color:#3a5144}
+.footer{color:#879188;padding:30px 0;font-size:11px}
+.footer strong{color:var(--green)}
+.comments{border-top:1px solid #e9ede6}
+.comments-title{color:var(--green);font-size:13px}
+.comment-item{border-bottom:1px solid #edf0e9}
+.comment-item strong{color:#536b5b}
+.comment-item p{color:#3e5045}
+.comment-form input,.comment-form textarea{border:1px solid #dce3d9;border-radius:10px;background:#fbfcf8;color:var(--ink)}
+.comment-help{color:#879188}
+.comment-submit{background:var(--green);color:#fff;border-radius:9px}
+.comment-submit:hover{background:var(--green-dark)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #b8664966;outline-offset:2px}
+@media(max-width:600px){
+ .wrap{padding:13px 12px 34px}
+ .hero{padding:21px 18px 23px;border-radius:18px}
+ .logo{width:39px;height:39px}
+ .brand h1{font-size:18px}
+ .brand small{font-size:8px;letter-spacing:1px}
+ .hero h2{font-size:31px;margin-top:31px;line-height:1.22}
+ .hero p{font-size:13px;margin-bottom:20px}
+ .cta{width:auto;min-height:44px}
+ .pill{display:none}
+ .section{margin-top:27px}
+ .section h2{font-size:22px}
+ .tools{gap:8px}
+ .tabs{gap:6px}
+ .tab{padding:8px 10px}
+ .compose,.post,.empty{padding:15px;border-radius:14px}
+ .post-head{gap:9px}
+ .content{font-size:14px;margin:14px 0}
+ .actions{gap:5px}
+ .action{font-size:11px}
+ .lang-switch{max-width:120px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+
 </style>
 </head>
 <body><div class="wrap">
