@@ -44,6 +44,28 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 @media(max-width:600px){.wrap{padding:14px 12px 32px}.hero{padding:20px 17px;border-radius:16px}.hero h1{font-size:21px}.panel{padding:15px;border-radius:13px}.panel h2{font-size:16px}.login{margin:24px auto}.language-switch{max-width:120px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
 
+
+/* Tenby Circle premium dark admin theme */
+:root{color-scheme:dark;--admin-bg:#090d12;--admin-panel:#0f151d;--admin-line:#26303c;--admin-ink:#edf2f8;--admin-muted:#91a0b2;--admin-accent:#8bb6ff}
+html,body{background:radial-gradient(ellipse at 50% -20%,#17243a 0,#0b1016 50%,#090d12 100%)!important;color:var(--admin-ink)!important}
+body{color-scheme:dark}
+header,.header,.hero,.panel,.card,.section,.login-card,.dashboard,.tab-panel,.stat-card,.item,.post-card,.report-card,.comment-card{background:#0f151d!important;color:var(--admin-ink)!important;border-color:#26303c!important;box-shadow:none!important}
+h1,h2,h3,h4,strong,label,.title,.item-title{color:#edf2f8!important}
+p,small,.muted,.subtitle,.help,.meta{color:#91a0b2!important}
+input,textarea,select{background:#0b1118!important;color:#edf2f8!important;border-color:#303d4d!important}
+input::placeholder,textarea::placeholder{color:#6f8093!important}
+button{transition:background .15s ease,border-color .15s ease}
+button:not(.primary):not(.danger){background:#121b26!important;color:#dce6f2!important;border-color:#303d4d!important}
+button.primary,.primary,.submit{background:#8bb6ff!important;color:#08111d!important;border-color:#8bb6ff!important}
+button.danger,.danger{background:#48202a!important;color:#ffb7c5!important;border-color:#68303d!important}
+nav,.nav,.tabs{border-color:#26303c!important}
+a{color:#a9c8ff}
+hr{border-color:#26303c!important}
+.notice,.alert,.message{background:#172332!important;color:#dce6f2!important;border-color:#30435e!important}
+[hidden]{display:none!important}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #8bb6ff!important;outline-offset:3px}
+@media(max-width:650px){body{padding-left:0!important;padding-right:0!important}.panel,.card,.login-card{border-radius:14px!important}}
+
 </style>
 </head>
 <body><main class="wrap">
