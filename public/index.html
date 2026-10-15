@@ -94,15 +94,88 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
 
+
+/* X-inspired social timeline layout */
+:root{--x-blue:#1d9bf0;--x-ink:#0f1419;--x-muted:#536471;--x-line:#eff3f4;--x-hover:#f7f9f9;--x-bg:#fff}
+html,body{background:#fff;color:var(--x-ink)}
+body{letter-spacing:0}
+.wrap{max-width:1280px;margin:0 auto;padding:0 18px;display:grid;grid-template-columns:238px minmax(0,600px) 300px;column-gap:26px;align-items:start;justify-content:center}
+.left-rail{grid-column:1;grid-row:1 / span 9;position:sticky;top:0;min-height:100vh;padding:14px 8px 24px 0;display:flex;flex-direction:column;border-right:1px solid var(--x-line)}
+.rail-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--x-ink);padding:12px 14px;margin-bottom:12px;border-radius:999px;width:max-content;max-width:100%}
+.rail-mark{display:grid;place-items:center;font-size:27px;font-weight:800;width:35px;height:35px;border-radius:50%;background:#0f1419;color:#fff}
+.rail-brand-name{font-size:20px;font-weight:800;letter-spacing:-.7px}
+.rail-nav{display:grid;gap:5px}
+.rail-link{display:flex;align-items:center;gap:18px;padding:12px 14px;border-radius:999px;color:var(--x-ink);text-decoration:none;font-size:17px;width:max-content;max-width:100%;transition:background .15s}
+.rail-link:hover,.rail-link.active{background:#f1f3f3}
+.rail-link.active{font-weight:750}
+.rail-icon{font-size:25px;width:28px;text-align:center;line-height:1}
+.rail-post{margin:18px 12px 0 4px;border:0;border-radius:999px;background:var(--x-blue);color:#fff;font-size:16px;font-weight:750;padding:15px 20px;box-shadow:none;min-height:52px}
+.rail-post:hover{background:#1a8cd8}
+.rail-note{margin:auto 12px 0 10px;padding:14px 0 0;border-top:1px solid var(--x-line);color:var(--x-muted);font-size:12px;line-height:1.6}
+.rail-note strong{color:var(--x-ink);font-size:14px}.rail-note p{margin:5px 0 0}
+.hero,.section,.tools,.notice,.compose,#feed,.footer{grid-column:2;min-width:0}
+.hero{grid-row:1;background:#fff;color:var(--x-ink);border:0;border-bottom:1px solid var(--x-line);border-radius:0;padding:16px 18px 18px;box-shadow:none;overflow:visible}
+.top{gap:10px}.logo{display:none}.brand h1{font-size:19px;color:var(--x-ink);letter-spacing:-.5px}.brand small{font-size:10px;color:var(--x-muted);letter-spacing:.3px}
+.pill{display:none}.lang-switch{border:1px solid #cfd9de;border-radius:999px;color:var(--x-ink);background:#fff;font-size:12px}
+.hero h2{font-size:24px;line-height:1.3;letter-spacing:-.7px;font-weight:800;color:var(--x-ink);margin:22px 0 5px}.hero h2 em{color:var(--x-ink);font-style:normal}
+.hero p{font-size:14px;line-height:1.6;color:var(--x-muted);margin:0 0 14px}
+.cta,.submit{background:var(--x-ink);color:#fff;border-radius:999px;padding:10px 17px;box-shadow:none;min-height:42px}.cta:hover,.submit:hover{background:#272c30;transform:none}
+.section{grid-row:2;margin:0;padding:16px 18px 12px;align-items:center;border-bottom:1px solid var(--x-line)}
+.section small{color:var(--x-muted);font-size:11px;letter-spacing:.5px}.section h2{font-size:19px;letter-spacing:-.4px;margin:0;color:var(--x-ink)}
+.refresh{border:0;background:transparent;color:var(--x-blue);border-radius:999px}
+.tools{grid-row:3;padding:12px 18px;border-bottom:1px solid var(--x-line);margin:0;gap:10px}
+.tabs{gap:5px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.tab{border:0;background:transparent;color:var(--x-muted);border-radius:999px;padding:8px 11px;font-size:12px}.tab.active{background:#e8f5fd;color:#0b6da9;border:0}.tab:hover{background:var(--x-hover)}
+.status{font-size:10px;white-space:nowrap}
+.notice{grid-row:4;margin:12px 14px;width:calc(100% - 28px);background:#fef7e8;border:1px solid #f4dfb0;color:#7b5514}
+.compose{grid-row:5;margin:0;border:0;border-bottom:1px solid var(--x-line);border-radius:0;padding:18px;background:#fff;box-shadow:none}
+.compose h3{font-size:17px}.compose label{color:var(--x-muted)}.compose input,.compose select,.compose textarea,.comment-form input,.comment-form textarea{border:1px solid #cfd9de;border-radius:12px;background:#fff}
+.row{color:var(--x-muted)}.submit{background:var(--x-blue)}.submit:hover{background:#1a8cd8}
+#feed{grid-row:6}
+.post,.empty{margin:0;border:0;border-bottom:1px solid var(--x-line);border-radius:0;padding:16px 18px;box-shadow:none;background:#fff;transition:background .12s}
+.post:hover{border-color:var(--x-line);background:#fff;box-shadow:none}
+.post-head{gap:10px}.avatar{width:42px;height:42px;border-radius:50%;background:#e8f5fd;font-size:18px}
+.author{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.author strong{font-size:14px;color:var(--x-ink)}.author small{font-size:13px;color:var(--x-muted)}
+.cat{margin-left:auto;background:#f1f3f3;color:#536471;border-radius:999px;font-size:11px}
+.content{font-size:15px;line-height:1.55;color:var(--x-ink);margin:10px 0 12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.actions{border-top:0;padding-top:5px;justify-content:space-between;gap:10px;max-width:470px}
+.action{color:var(--x-muted);font-size:12px;border-radius:999px;min-height:35px;padding:5px 9px}.action:hover{background:#e8f5fd;color:var(--x-blue)}.action.liked{color:#f91880}
+.comments{border-top:1px solid var(--x-line)}.comments-title,.comment-item strong{color:var(--x-ink)}.comment-item{border-color:var(--x-line)}.comment-item p{color:#27313a}.comment-help{color:var(--x-muted)}.comment-submit{background:var(--x-blue);border-radius:999px}
+.empty{color:var(--x-muted);padding:45px 18px}.empty strong{color:var(--x-ink)}
+.footer{grid-row:7;color:#8b98a0;font-size:11px;border-top:1px solid var(--x-line);padding:20px 18px}.footer strong{color:var(--x-ink)}
+.right-rail{grid-column:3;grid-row:1 / span 9;position:sticky;top:0;padding:12px 0 30px;display:grid;gap:14px}
+.side-card{border:1px solid var(--x-line);border-radius:16px;background:#f7f9f9;padding:16px;overflow:hidden}
+.side-card h3{font-size:19px;letter-spacing:-.4px;line-height:1.3;margin:0 0 8px;color:var(--x-ink)}.side-card p{font-size:13px;line-height:1.6;color:var(--x-muted);margin:0}
+.search-card{padding:0;border:0;background:transparent}.fake-search{display:flex;align-items:center;gap:12px;background:#eff3f4;border:1px solid transparent;border-radius:999px;padding:12px 17px;color:var(--x-muted);font-size:14px}.fake-search span:first-child{font-size:20px}
+.topic-shortcuts{display:grid;margin-top:10px}.topic-shortcuts a{display:grid;grid-template-columns:25px 1fr 14px;gap:8px;align-items:center;text-decoration:none;color:var(--x-ink);padding:10px 0;border-top:1px solid #e6ebed;font-size:13px}.topic-shortcuts a span:last-child{color:var(--x-muted);font-size:18px}.topic-shortcuts a:hover{color:var(--x-blue)}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--x-blue);outline-offset:2px}
+@media(max-width:1080px){.wrap{grid-template-columns:72px minmax(0,600px);column-gap:20px;max-width:760px}.left-rail{padding-right:8px}.rail-brand{padding:10px;width:50px}.rail-brand-name,.rail-link span:not(.rail-icon),.rail-note{display:none}.rail-link{width:50px;height:50px;justify-content:center;padding:10px}.rail-post{width:50px;height:50px;min-height:50px;padding:0;font-size:0;margin:16px 0}.rail-post span{font-size:0}.rail-post span:after{content:'+';font-size:28px}.right-rail{display:none}.hero,.section,.tools,.notice,.compose,#feed,.footer{grid-column:2}}
+@media(max-width:650px){.wrap{display:block;padding:0;max-width:600px}.left-rail{position:sticky;z-index:20;top:0;min-height:0;height:58px;padding:4px 12px;display:flex;flex-direction:row;align-items:center;justify-content:space-between;background:#ffffffed;backdrop-filter:blur(12px);border-right:0;border-bottom:1px solid var(--x-line)}.rail-brand{margin:0;padding:4px;width:auto}.rail-mark{width:32px;height:32px;font-size:23px}.rail-brand-name{display:inline;font-size:17px}.rail-nav{display:flex;gap:2px}.rail-link{display:none}.rail-link:first-child,.rail-link:nth-child(3){display:flex;width:42px;height:42px;padding:8px}.rail-link span:not(.rail-icon){display:none}.rail-icon{font-size:22px}.rail-post{margin:0;width:auto;height:38px;min-height:38px;padding:0 18px;font-size:13px}.rail-post span,.rail-post span:after{font-size:13px}.hero{padding:14px 16px 16px}.top{flex-wrap:wrap}.brand{flex:1}.brand h1{font-size:17px}.brand small{font-size:8px}.hero h2{font-size:22px;margin:18px 0 5px}.hero p{font-size:13px}.cta{min-height:38px;padding:8px 15px}.section{padding:13px 16px 10px}.tools{padding:10px 12px;display:block}.tabs{margin-bottom:5px}.status{display:block;padding:3px 3px}.notice{width:calc(100% - 24px);margin:12px}.compose{padding:15px 16px}.post,.empty{padding:15px 16px}.footer{padding:18px 16px}.cat{max-width:110px;overflow:hidden;text-overflow:ellipsis}.actions{max-width:none}.action{font-size:11px;padding:5px 7px}.right-rail{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
 </style>
 </head>
 <body><div class="wrap">
+<aside class="left-rail" aria-label="Main navigation">
+  <a class="rail-brand" href="#" aria-label="Tenby Campus Circle home"><span class="rail-mark">𝕏</span><span class="rail-brand-name">Tenby Circle</span></a>
+  <nav class="rail-nav">
+    <a class="rail-link active" href="#feed"><span class="rail-icon">⌂</span><span data-en="Home" data-ms="Utama">主页</span></a>
+    <a class="rail-link" href="#tabs"><span class="rail-icon">⌕</span><span data-en="Explore topics" data-ms="Teroka topik">探索话题</span></a>
+    <a class="rail-link" href="#compose" id="railCompose"><span class="rail-icon">✎</span><span data-en="Write a post" data-ms="Tulis hantaran">发布动态</span></a>
+    <a class="rail-link" href="#footer"><span class="rail-icon">ⓘ</span><span data-en="Community rules" data-ms="Peraturan komuniti">社区守则</span></a>
+  </nav>
+  <button class="rail-post" id="railPost" type="button"><span data-en="Post" data-ms="Hantar">发布</span></button>
+  <div class="rail-note"><strong>Tenby Circle</strong><p data-en="A space for campus life, questions and ideas." data-ms="Ruang untuk kehidupan kampus, soalan dan idea.">分享校园生活、问题与想法的空间。</p></div>
+</aside>
 <header class="hero"><div class="top"><div class="logo">✦</div><div class="brand"><h1>Tenby 校园圈</h1><small>TENBY CAMPUS COMMUNITY · 分享真实校园生活</small></div><span class="pill">学生交流社区</span><select id="languageSwitch" class="lang-switch" aria-label="Language"><option value="zh-CN">中文</option><option value="en">English</option><option value="ms">Bahasa Melayu</option></select></div><h2>校园生活的每一面，<br><em>都值得分享。</em></h2><p>聊日常、问问题、分享兴趣，也可以只是记录今天。</p><button class="cta" id="openForm">＋ 发布一条动态</button></header>
 <div class="section"><div><small id="schoolLabel">YOUR CAMPUS</small><h2>大家都在分享</h2></div><button class="refresh" id="refresh">↻ 刷新</button></div>
 <div class="tools"><div class="tabs" id="tabs"></div><select id="sortOrder" class="lang-switch" aria-label="排序"><option value="newest">最新</option><option value="popular">最热门</option></select><span class="status" id="status">正在连接数据库…</span></div>
 <div class="notice" id="notice" hidden role="status"></div>
 <form class="compose" id="compose" hidden><h3>✍️ 发布一条动态</h3><label>选择话题<select id="category"><option value="日常分享">日常分享</option><option value="校园生活">校园生活</option><option value="学习交流">学习交流</option><option value="求助互助">求助互助</option><option value="吐槽建议">吐槽建议</option><option value="兴趣交友">兴趣交友</option><option value="其他话题">其他话题</option></select></label><label>匿名昵称<input id="nickname" maxlength="24" value="匿名同学" placeholder="例如：晚风"></label><label>想分享的内容<textarea id="content" maxlength="1000" minlength="3" required placeholder="今天发生了什么？有什么经验、问题或想法想分享？请勿发布他人隐私、学号、联系方式或未经同意的照片。"></textarea></label><div class="row"><span id="count">0/1000 · 发布后需审核</span><div><button type="button" class="refresh" id="cancel">取消</button> <button class="submit" id="send" type="submit">提交投稿</button></div></div></form>
-<div id="feed"></div><footer class="footer">✦ <strong>校园圈</strong> · 分享校园生活，连接每一个你<br>尊重不同观点，友善交流；请勿发布他人隐私、骚扰或违法内容。<br>新动态经基础审核后公开展示。</footer>
+<div id="feed"></div><footer class="footer" id="footer">✦ <strong>Tenby Circle</strong> · 分享校园生活，连接每一个你<br>尊重不同观点，友善交流；请勿发布他人隐私、骚扰或违法内容。<br>新动态经基础审核后公开展示。</footer>
+<aside class="right-rail">
+  <section class="side-card search-card"><div class="fake-search"><span>⌕</span><span data-en="Search campus circle" data-ms="Cari komuniti kampus">搜索校园圈</span></div></section>
+  <section class="side-card"><h3 data-en="Campus topics" data-ms="Topik kampus">校园话题</h3><p data-en="Find conversations by category." data-ms="Cari perbualan mengikut kategori.">按话题寻找感兴趣的讨论。</p><div class="topic-shortcuts"><a href="#tabs" data-rail-cat="日常分享"><span>☀️</span><span data-en="Daily life" data-ms="Kehidupan harian">日常分享</span><span>›</span></a><a href="#tabs" data-rail-cat="校园生活"><span>🏫</span><span data-en="Campus life" data-ms="Kehidupan kampus">校园生活</span><span>›</span></a><a href="#tabs" data-rail-cat="学习交流"><span>📚</span><span data-en="Study" data-ms="Pembelajaran">学习交流</span><span>›</span></a><a href="#tabs" data-rail-cat="求助互助"><span>🤝</span><span data-en="Help & support" data-ms="Bantuan">求助互助</span><span>›</span></a></div></section>
+  <section class="side-card"><h3 data-en="A better campus starts here" data-ms="Kampus lebih baik bermula di sini">让校园交流更友善</h3><p data-en="Be respectful. Protect personal information. Report harmful content." data-ms="Hormati orang lain. Lindungi maklumat peribadi. Laporkan kandungan berbahaya.">尊重他人、保护个人信息，发现不当内容请及时举报。</p></section>
+</aside>
 </div>
 <script type="module">
 const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2').catch(error => {
@@ -170,6 +243,16 @@ $('#sortOrder').onchange=()=>{sortOrder=$('#sortOrder').value;drawPosts()};
 $('#openForm').onclick=()=>{$('#compose').hidden=false;$('#content').focus();notice('')};$('#cancel').onclick=()=>$('#compose').hidden=true;$('#refresh').onclick=load;$('#content').oninput=()=>$('#count').textContent=$('#content').value.length+'/1000 · 发布后需审核';
 $('#compose').onsubmit=async e=>{e.preventDefault();const content=$('#content').value.trim();if(content.length<3){notice('请至少输入 3 个字。');return}$('#send').disabled=true;$('#send').textContent='提交中…';const {error}=await supabase.from('posts').insert({category:$('#category').value,nickname:$('#nickname').value.trim().slice(0,24)||'匿名同学',content,status:'pending'});$('#send').disabled=false;$('#send').textContent='提交投稿';if(error){notice('发布失败，请稍后再试。');console.error(error)}else{$('#content').value='';$('#count').textContent='0/1000 · 发布后需审核';$('#compose').hidden=true;notice('发布成功！为保护社区环境，动态通过审核后会显示。')}};
 drawTabs();load();
+
+// X-style rail interactions, without changing the existing post and moderation logic.
+document.querySelector('#railPost')?.addEventListener('click',()=>document.querySelector('#openForm')?.click());
+document.querySelector('#railCompose')?.addEventListener('click',()=>{document.querySelector('#openForm')?.click()});
+document.querySelectorAll('[data-rail-cat]').forEach(link=>link.addEventListener('click',()=>{
+ const target=link.getAttribute('data-rail-cat');
+ const tab=[...document.querySelectorAll('#tabs .tab')].find(b=>b.dataset.cat===target);
+ if(tab)tab.click();
+}));
+
 </script>
 <script>
 (function(){
