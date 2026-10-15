@@ -19,7 +19,12 @@
 <footer class="muted" style="text-align:center;padding:22px">校园圈 · 请保护学生隐私，审核时勿公开他人联系方式或敏感信息。</footer>
 </main>
 <script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2').catch(error => {
+ const msg=document.querySelector('#loginMsg');
+ if(msg){msg.textContent='无法加载数据库客户端：请检查网络连接后刷新页面。';msg.classList.remove('hidden');}
+ console.error('Supabase client module failed to load:',error);
+ throw error;
+});
 const SUPABASE_URL='https://ttdzyotdtwpsuqideprq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_jPZubrHoG5XHihwAwnpfNg_3MOG_iAL';
 const supabase=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
@@ -31,7 +36,21 @@ function labelStatus(s){return ({pending:'待审核',approved:'已通过',reject
 function showLogin(){ $('#loginPanel').classList.remove('hidden');$('#dashboard').classList.add('hidden') }
 function showDashboard(email){$('#loginPanel').classList.add('hidden');$('#dashboard').classList.remove('hidden');$('#welcome').textContent='已登录：'+email}
 async function ensureAdmin(){const {data:{session}}=await supabase.auth.getSession();if(!session){showLogin();return false}const {data:{user},error}=await supabase.auth.getUser();if(error||!user||user.app_metadata?.role!=='admin'){await supabase.auth.signOut();showLogin();loginMessage('此账号没有管理员权限。请在 Supabase Auth 用户的 app_metadata 中设置 role 为 admin，然后重新登录。');return false}showDashboard(user.email||'管理员');await refreshAll();return true}
-async function refreshAll(){message('正在加载…');const [p,r]=await Promise.all([supabase.from('posts').select('id,category,nickname,content,status,likes_count,created_at').order('created_at',{ascending:false}).limit(200),supabase.from('reports').select('id,post_id,reason,status,created_at').order('created_at',{ascending:false}).limit(200)]);if(p.error||r.error){message('加载失败：'+(p.error?.message||r.error?.message||'请检查数据库权限'));return}message('');renderPosts(p.data||[]);renderReports(r.data||[],p.data||[])}
+async function refreshAll(){
+ message('正在加载…');
+ try{
+  const result=await Promise.race([
+   Promise.all([
+    supabase.from('posts').select('id,category,nickname,content,status,likes_count,created_at').order('created_at',{ascending:false}).limit(200),
+    supabase.from('reports').select('id,post_id,reason,status,created_at').order('created_at',{ascending:false}).limit(200)
+   ]),
+   new Promise((_,reject)=>setTimeout(()=>reject(new Error('数据库请求超过 12 秒仍未响应，请检查网络或 Supabase API。')),12000))
+  ]);
+  const [p,r]=result;
+  if(p.error||r.error){message('加载失败：'+(p.error?.message||r.error?.message||'请检查数据库权限'));return}
+  message('');renderPosts(p.data||[]);renderReports(r.data||[],p.data||[]);
+ }catch(error){message('加载失败：'+(error?.message||'未知错误'));console.error('Supabase admin load failed:',error)}
+}
 function renderPosts(rows){$('#postCount').textContent='（'+rows.length+' 条）';$('#posts').innerHTML=rows.length?rows.map(p=>'<article class="item"><div class="item-head"><span class="name">'+esc(p.nickname||'匿名同学')+'</span><span class="tag">'+esc(p.category)+'</span><span class="tag '+esc(p.status)+'">'+esc(labelStatus(p.status))+'</span></div><p class="body">'+esc(p.content)+'</p><div class="small">'+new Date(p.created_at).toLocaleString()+' · 点赞 '+Number(p.likes_count||0)+'</div><div class="actions">'+(p.status!=='approved'?'<button class="btn" data-status="approved" data-id="'+p.id+'">审核通过</button>':'')+(p.status!=='rejected'?'<button class="btn secondary" data-status="rejected" data-id="'+p.id+'">拒绝</button>':'')+'<button class="btn danger" data-delete="'+p.id+'">删除</button></div></article>').join(''):'<div class="empty">暂无动态</div>';
 $('#posts').querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>changePostStatus(b.dataset.id,b.dataset.status));$('#posts').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deletePost(b.dataset.delete))}
 function renderReports(rows,posts){const map=new Map(posts.map(p=>[p.id,p]));$('#reportCount').textContent='（'+rows.length+' 条）';$('#reports').innerHTML=rows.length?rows.map(r=>{const p=map.get(r.post_id);return '<article class="item"><div class="item-head"><span class="tag '+esc(r.status)+'">'+esc(labelStatus(r.status))+'</span><span class="small">'+new Date(r.created_at).toLocaleString()+'</span></div><p class="body"><strong>举报原因：</strong>'+esc(r.reason)+'</p>'+(p?'<p class="body"><strong>相关帖子：</strong>'+esc(p.nickname||'匿名同学')+' · '+esc(p.content)+'</p>':'<p class="small">相关帖子可能已删除</p>')+'<div class="actions">'+(r.status!=='reviewed'?'<button class="btn secondary" data-report-status="reviewed" data-id="'+r.id+'">标记已查看</button>':'')+(r.status!=='dismissed'?'<button class="btn secondary" data-report-status="dismissed" data-id="'+r.id+'">关闭举报</button>':'')+'</div></article>'}).join(''):'<div class="empty">暂无举报</div>';
