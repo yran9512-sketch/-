@@ -17,7 +17,13 @@
 <div id="feed"></div><footer class="footer">✦ <strong>校园圈</strong> · 分享校园生活，连接每一个你<br>尊重不同观点，友善交流；请勿发布他人隐私、骚扰或违法内容。<br>新动态经基础审核后公开展示。</footer>
 </div>
 <script type="module">
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2').catch(error => {
+ const status=document.querySelector('#status'), notice=document.querySelector('#notice');
+ if(status)status.textContent='数据库客户端加载失败';
+ if(notice){notice.textContent='无法加载数据库组件。请检查网络连接，或稍后刷新页面。';notice.hidden=false;}
+ console.error('Supabase client module failed to load:',error);
+ throw error;
+});
 // CONFIG: Publishable key is intended for browser use. Never put a service_role/secret key here.
 const SUPABASE_URL = 'https://ttdzyotdtwpsuqideprq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_jPZubrHoG5XHihwAwnpfNg_3MOG_iAL';
@@ -34,7 +40,21 @@ function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':
 function drawTabs(){$('#tabs').innerHTML=categories.map(c=>'<button class="tab '+(active===c?'active':'')+'" data-cat="'+c+'">'+c+'</button>').join('');$('#tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{active=b.dataset.cat;drawTabs();drawPosts()})}
 function drawPosts(){const shown=posts.filter(p=>active==='全部'||p.category===active);$('#feed').innerHTML=shown.length?shown.map(p=>'<article class="post"><div class="post-head"><div class="avatar">'+(icons[p.category]||'💌')+'</div><div class="author"><strong>'+escapeHtml(p.nickname||'匿名同学')+'</strong><small>'+ago(p.created_at)+'</small></div><span class="cat">'+escapeHtml(p.category)+'</span></div><p class="content">'+escapeHtml(p.content)+'</p><div class="actions"><button class="action '+(liked.has(p.id)?'liked':'')+'" data-like="'+p.id+'">♡ '+(Number(p.likes_count)||0)+' 赞</button><button class="action" data-report="'+p.id+'">⚑ 举报</button></div></article>').join(''):'<div class="empty"><div style="font-size:30px">💌</div><strong>这里还没有内容</strong>来分享第一条动态吧。</div>';
 $('#feed').querySelectorAll('[data-like]').forEach(b=>b.onclick=()=>like(b.dataset.like));$('#feed').querySelectorAll('[data-report]').forEach(b=>b.onclick=()=>report(b.dataset.report))}
-async function load(){$('#status').textContent='正在连接…';const {data,error}=await supabase.from('posts').select('id,category,nickname,content,created_at,likes_count').eq('status','approved').order('created_at',{ascending:false}).limit(100);if(error){$('#status').textContent='数据库连接失败';notice('暂时无法加载内容，请稍后刷新。');console.error(error)}else{$('#status').textContent='● 已连接';$('#status').className='status ok';posts=data||[];notice('')}drawPosts()}
+async function load(){
+ $('#status').textContent='正在连接…';$('#status').className='status';notice('');
+ try{
+  const result=await Promise.race([
+   supabase.from('posts').select('id,category,nickname,content,created_at,likes_count').eq('status','approved').order('created_at',{ascending:false}).limit(100),
+   new Promise((_,reject)=>setTimeout(()=>reject(new Error('数据库请求超过 12 秒仍未响应，请检查网络或 Supabase API。')),12000))
+  ]);
+  if(result.error)throw result.error;
+  $('#status').textContent='● 已连接';$('#status').className='status ok';posts=result.data||[];notice('');
+ }catch(error){
+  $('#status').textContent='数据库连接失败';$('#status').className='status';
+  notice('连接失败：'+(error?.message||'未知错误'));
+  console.error('Supabase load failed:',error);
+ }finally{drawPosts()}
+}
 async function like(id){if(liked.has(id)){notice('每条内容每个浏览器只允许点赞一次。');return}const {error}=await supabase.rpc('increment_post_like',{post_id:id});if(error){notice('点赞失败，请稍后再试。');return}liked.add(id);localStorage.setItem('campus-liked',JSON.stringify([...liked]));const p=posts.find(x=>x.id===id);if(p)p.likes_count=(Number(p.likes_count)||0)+1;drawPosts()}
 async function report(id){const reason=prompt('请简要说明举报原因（例如：隐私泄露、骚扰、违规内容）：');if(!reason||!reason.trim())return;const {error}=await supabase.from('reports').insert({post_id:id,reason:reason.trim().slice(0,300)});notice(error?'举报提交失败，请稍后再试。':'感谢反馈，举报已提交给管理员。')}
 $('#openForm').onclick=()=>{$('#compose').hidden=false;$('#content').focus();notice('')};$('#cancel').onclick=()=>$('#compose').hidden=true;$('#refresh').onclick=load;$('#content').oninput=()=>$('#count').textContent=$('#content').value.length+'/1000 · 发布后需审核';
