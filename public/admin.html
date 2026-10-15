@@ -2,10 +2,48 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#fff6fa">
+<meta name="theme-color" content="#1d3f33">
 <title>Tenby 校园圈 · 管理后台</title>
 <style>
 :root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#352a35;background:#fff8fb}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#ffeaf2,#fffafd 340px);min-height:100vh}button,input{font:inherit}button{cursor:pointer}.wrap{max-width:1000px;margin:auto;padding:22px 15px 48px}.language-switch{float:right;border:1px solid #f1d3e1;border-radius:10px;padding:8px;background:#fff;color:#79566b;font:inherit;font-size:12px;max-width:145px}.hero{padding:22px;border-radius:22px;background:linear-gradient(130deg,#f8c9dd,#fff0f5);margin-bottom:22px}.hero h1{margin:0 0 6px;font-size:25px}.muted{color:#886f80;font-size:13px}.panel{background:#fff;border:1px solid #f0dfe8;border-radius:18px;padding:18px;margin:14px 0;box-shadow:0 8px 26px #8d48680a}.panel h2{margin:0 0 14px;font-size:19px}.login{max-width:420px;margin:40px auto}.field{display:block;margin:13px 0;font-size:13px}.field input{display:block;width:100%;padding:12px;border:1px solid #e8d4df;border-radius:11px;margin-top:6px}.btn{border:0;border-radius:11px;padding:10px 13px;background:#d94f8b;color:#fff;font-weight:650}.btn.secondary{background:#fff0f5;color:#a7386d;border:1px solid #f1d3e1}.btn.danger{background:#fff0f0;color:#b12f45;border:1px solid #f3c9ce}.btn:disabled{opacity:.55;cursor:wait}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.item{padding:15px 0;border-top:1px solid #f5eaf0}.item:first-child{border-top:0}.item-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.name{font-weight:700}.tag{font-size:11px;padding:5px 8px;border-radius:99px;background:#fff0f5;color:#a7386d}.tag.approved{background:#e9f8ef;color:#237348}.tag.rejected,.tag.dismissed{background:#f4eff3;color:#806b7a}.tag.open,.tag.pending{background:#fff4df;color:#8c5a12}.body{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.75;margin:10px 0}.small{font-size:12px;color:#9b8593}.msg{padding:11px 13px;border-radius:10px;background:#fff0f5;color:#8d3b62;margin:12px 0;font-size:13px}.topline{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.hidden{display:none!important}.empty{padding:22px;text-align:center;color:#987f8e}@media(min-width:750px){.columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}}
+
+/* Tenby admin visual refresh — consistent editorial design */
+:root{color-scheme:light;font-family:Inter,"Aptos",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#23352e;background:#f5f5ef;--ink:#23352e;--muted:#718078;--line:#e3e7df;--paper:#fffefa;--canvas:#f5f5ef;--green:#285344;--green-dark:#1d3f33;--sage:#e7eee6;--clay:#b86649;--clay-soft:#f5e9e2;--shadow:0 12px 34px rgba(31,52,43,.055)}
+html,body{background:var(--canvas);color:var(--ink)}
+.wrap{max-width:1100px;padding:26px 22px 50px}
+.language-switch{border:1px solid #dce4dc;border-radius:10px;background:var(--paper);color:#334c40;padding:9px 11px}
+.hero{background:var(--green-dark);color:#fffefa;border:1px solid #244a3d;border-radius:20px;padding:25px 27px;margin-bottom:25px;box-shadow:0 18px 42px rgba(29,63,51,.11)}
+.hero h1{font-size:25px;font-weight:760;letter-spacing:-.045em;color:#fffefa}
+.muted{color:#c4d4ca;font-size:13px;line-height:1.7}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px;margin:14px 0;box-shadow:var(--shadow)}
+.panel h2{color:var(--ink);font-size:17px;letter-spacing:-.025em}
+.login{border-radius:17px}
+.field{color:#43584c;font-size:12px;font-weight:700}
+.field input{border:1px solid #dce3d9;border-radius:10px;background:#fbfcf8;color:var(--ink);padding:12px}
+.field input:focus{border-color:#729381;box-shadow:0 0 0 3px #28534412;outline:none}
+.btn{background:var(--green);color:#fffefa;border-radius:9px;padding:10px 14px;font-weight:700;transition:background .15s,transform .15s}
+.btn:hover{background:var(--green-dark);transform:translateY(-1px)}
+.btn.secondary{background:#f0f3ed;color:#3e5b4b;border:1px solid #dce4da}
+.btn.secondary:hover{background:#e4ebe1}
+.btn.danger{background:#f8e9e5;color:#9b493c;border:1px solid #edd0c8}
+.btn.danger:hover{background:#f2dcd5}
+.item{border-top:1px solid #edf0e9;padding:17px 0}
+.item:first-child{border-top:0}
+.name{color:#293b32;font-weight:750}
+.tag{border-radius:7px;background:var(--clay-soft);color:#9d573d;font-weight:650}
+.tag.approved{background:#e5f0e7;color:#316747}
+.tag.rejected,.tag.dismissed{background:#ecefe9;color:#68756b}
+.tag.open,.tag.pending{background:#f7eddb;color:#8c5f25}
+.body{color:#3b4e43;line-height:1.8}
+.small{color:#859087}
+.msg{background:#f8eee4;color:#85543c;border:1px solid #ead7c4;border-radius:10px}
+.empty{color:#78867c}
+.actions{gap:8px}
+.hidden{display:none!important}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #b8664966;outline-offset:2px}
+@media(max-width:600px){.wrap{padding:14px 12px 32px}.hero{padding:20px 17px;border-radius:16px}.hero h1{font-size:21px}.panel{padding:15px;border-radius:13px}.panel h2{font-size:16px}.login{margin:24px auto}.language-switch{max-width:120px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+
 </style>
 </head>
 <body><main class="wrap">
