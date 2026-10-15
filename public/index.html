@@ -278,6 +278,8 @@ document.querySelectorAll('[data-rail-cat]').forEach(link=>link.addEventListener
   if(root.nodeType===Node.TEXT_NODE){setTranslatedText(root);return;}
   if(root.nodeType!==Node.ELEMENT_NODE)return;
   if(root.matches('script,style,textarea,.content,.body,.author,.name,[data-user-content]'))return;
+  const localized=root.getAttribute(lang==='en'?'data-en':lang==='ms'?'data-ms':'data-zh');
+  if(localized){if(root.textContent!==localized)root.textContent=localized;return;}
   for(const attr of ['placeholder','aria-label','title']){
    if(root.hasAttribute(attr)){
     const original=root.getAttribute(attr), translated=tr(original);
