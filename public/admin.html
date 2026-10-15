@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fff6fa">
+<title>心动校园 · 管理后台</title>
+<style>
+:root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#352a35;background:#fff8fb}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#ffeaf2,#fffafd 340px);min-height:100vh}button,input{font:inherit}button{cursor:pointer}.wrap{max-width:1000px;margin:auto;padding:22px 15px 48px}.hero{padding:22px;border-radius:22px;background:linear-gradient(130deg,#f8c9dd,#fff0f5);margin-bottom:22px}.hero h1{margin:0 0 6px;font-size:25px}.muted{color:#886f80;font-size:13px}.panel{background:#fff;border:1px solid #f0dfe8;border-radius:18px;padding:18px;margin:14px 0;box-shadow:0 8px 26px #8d48680a}.panel h2{margin:0 0 14px;font-size:19px}.login{max-width:420px;margin:40px auto}.field{display:block;margin:13px 0;font-size:13px}.field input{display:block;width:100%;padding:12px;border:1px solid #e8d4df;border-radius:11px;margin-top:6px}.btn{border:0;border-radius:11px;padding:10px 13px;background:#d94f8b;color:#fff;font-weight:650}.btn.secondary{background:#fff0f5;color:#a7386d;border:1px solid #f1d3e1}.btn.danger{background:#fff0f0;color:#b12f45;border:1px solid #f3c9ce}.btn:disabled{opacity:.55;cursor:wait}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.item{padding:15px 0;border-top:1px solid #f5eaf0}.item:first-child{border-top:0}.item-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.name{font-weight:700}.tag{font-size:11px;padding:5px 8px;border-radius:99px;background:#fff0f5;color:#a7386d}.tag.approved{background:#e9f8ef;color:#237348}.tag.rejected,.tag.dismissed{background:#f4eff3;color:#806b7a}.tag.open,.tag.pending{background:#fff4df;color:#8c5a12}.body{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.75;margin:10px 0}.small{font-size:12px;color:#9b8593}.msg{padding:11px 13px;border-radius:10px;background:#fff0f5;color:#8d3b62;margin:12px 0;font-size:13px}.topline{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.hidden{display:none!important}.empty{padding:22px;text-align:center;color:#987f8e}@media(min-width:750px){.columns{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="hero"><h1>♡ 心动校园 · 管理后台</h1><div class="muted">仅授权管理员可登录。请妥善保管账号，不要分享登录信息。</div></header>
+<section id="loginPanel" class="panel login"><h2>管理员登录</h2><p class="muted">使用已在 Supabase Auth 中创建的管理员邮箱和密码登录。</p><form id="loginForm"><label class="field">管理员邮箱<input id="email" type="email" autocomplete="username" required></label><label class="field">密码<input id="password" type="password" autocomplete="current-password" required></label><button id="loginBtn" class="btn" type="submit">登录</button></form><div id="loginMsg" class="msg hidden" role="status"></div></section>
+<section id="dashboard" class="hidden">
+<div class="topline"><div><strong id="welcome">管理员控制台</strong><div class="muted">审核投稿、处理举报。删除帖子会同时删除该帖相关举报。</div></div><div class="actions"><button id="reload" class="btn secondary">刷新数据</button><button id="logout" class="btn secondary">退出登录</button></div></div>
+<div id="msg" class="msg hidden" role="status"></div>
+<div class="columns"><section class="panel"><h2>投稿审核 <span id="postCount" class="small"></span></h2><div id="posts"></div></section><section class="panel"><h2>举报处理 <span id="reportCount" class="small"></span></h2><div id="reports"></div></section></div>
+</section>
+<footer class="muted" style="text-align:center;padding:22px">心动校园 · 请保护投稿者隐私，审核时勿公开他人联系方式或敏感信息。</footer>
+</main>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const SUPABASE_URL='https://ttdzyotdtwpsuqideprq.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_jPZubrHoG5XHihwAwnpfNg_3MOG_iAL';
+const supabase=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+const $=s=>document.querySelector(s);
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function message(s){$('#msg').textContent=s;$('#msg').classList.toggle('hidden',!s)}
+function loginMessage(s){$('#loginMsg').textContent=s;$('#loginMsg').classList.toggle('hidden',!s)}
+function labelStatus(s){return ({pending:'待审核',approved:'已通过',rejected:'已拒绝',open:'待处理',reviewed:'已查看',dismissed:'已关闭'})[s]||s}
+function showLogin(){ $('#loginPanel').classList.remove('hidden');$('#dashboard').classList.add('hidden') }
+function showDashboard(email){$('#loginPanel').classList.add('hidden');$('#dashboard').classList.remove('hidden');$('#welcome').textContent='已登录：'+email}
+async function ensureAdmin(){const {data:{session}}=await supabase.auth.getSession();if(!session){showLogin();return false}const {data:{user},error}=await supabase.auth.getUser();if(error||!user||user.app_metadata?.role!=='admin'){await supabase.auth.signOut();showLogin();loginMessage('此账号没有管理员权限。请在 Supabase Auth 用户的 app_metadata 中设置 role 为 admin，然后重新登录。');return false}showDashboard(user.email||'管理员');await refreshAll();return true}
+async function refreshAll(){message('正在加载…');const [p,r]=await Promise.all([supabase.from('posts').select('id,category,nickname,content,status,likes_count,created_at').order('created_at',{ascending:false}).limit(200),supabase.from('reports').select('id,post_id,reason,status,created_at').order('created_at',{ascending:false}).limit(200)]);if(p.error||r.error){message('加载失败：'+(p.error?.message||r.error?.message||'请检查数据库权限'));return}message('');renderPosts(p.data||[]);renderReports(r.data||[],p.data||[])}
+function renderPosts(rows){$('#postCount').textContent='（'+rows.length+' 条）';$('#posts').innerHTML=rows.length?rows.map(p=>'<article class="item"><div class="item-head"><span class="name">'+esc(p.nickname||'匿名同学')+'</span><span class="tag">'+esc(p.category)+'</span><span class="tag '+esc(p.status)+'">'+esc(labelStatus(p.status))+'</span></div><p class="body">'+esc(p.content)+'</p><div class="small">'+new Date(p.created_at).toLocaleString()+' · 点赞 '+Number(p.likes_count||0)+'</div><div class="actions">'+(p.status!=='approved'?'<button class="btn" data-status="approved" data-id="'+p.id+'">审核通过</button>':'')+(p.status!=='rejected'?'<button class="btn secondary" data-status="rejected" data-id="'+p.id+'">拒绝</button>':'')+'<button class="btn danger" data-delete="'+p.id+'">删除</button></div></article>').join(''):'<div class="empty">暂无投稿</div>';
+$('#posts').querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>changePostStatus(b.dataset.id,b.dataset.status));$('#posts').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deletePost(b.dataset.delete))}
+function renderReports(rows,posts){const map=new Map(posts.map(p=>[p.id,p]));$('#reportCount').textContent='（'+rows.length+' 条）';$('#reports').innerHTML=rows.length?rows.map(r=>{const p=map.get(r.post_id);return '<article class="item"><div class="item-head"><span class="tag '+esc(r.status)+'">'+esc(labelStatus(r.status))+'</span><span class="small">'+new Date(r.created_at).toLocaleString()+'</span></div><p class="body"><strong>举报原因：</strong>'+esc(r.reason)+'</p>'+(p?'<p class="body"><strong>相关帖子：</strong>'+esc(p.nickname||'匿名同学')+' · '+esc(p.content)+'</p>':'<p class="small">相关帖子可能已删除</p>')+'<div class="actions">'+(r.status!=='reviewed'?'<button class="btn secondary" data-report-status="reviewed" data-id="'+r.id+'">标记已查看</button>':'')+(r.status!=='dismissed'?'<button class="btn secondary" data-report-status="dismissed" data-id="'+r.id+'">关闭举报</button>':'')+'</div></article>'}).join(''):'<div class="empty">暂无举报</div>';
+$('#reports').querySelectorAll('[data-report-status]').forEach(b=>b.onclick=()=>changeReportStatus(b.dataset.id,b.dataset.reportStatus))}
+async function changePostStatus(id,status){message('正在保存…');const {error}=await supabase.from('posts').update({status}).eq('id',id);if(error){message('操作失败：'+error.message);return}await refreshAll()}
+async function deletePost(id){if(!confirm('确定删除这条帖子吗？相关举报也会一并删除，且无法恢复。'))return;message('正在删除…');const {error}=await supabase.rpc('admin_delete_post',{p_post_id:id});if(error){message('删除失败：'+error.message);return}await refreshAll()}
+async function changeReportStatus(id,status){message('正在更新举报…');const {error}=await supabase.from('reports').update({status}).eq('id',id);if(error){message('操作失败：'+error.message);return}await refreshAll()}
+$('#loginForm').onsubmit=async e=>{e.preventDefault();$('#loginBtn').disabled=true;loginMessage('正在登录…');const {error}=await supabase.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#password').value});$('#loginBtn').disabled=false;if(error){loginMessage('登录失败，请检查邮箱和密码。');return}loginMessage('');await ensureAdmin()};
+$('#logout').onclick=async()=>{await supabase.auth.signOut();showLogin();loginMessage('已退出登录。')};$('#reload').onclick=refreshAll;
+await ensureAdmin();
+</script></body></html>
