@@ -151,6 +151,128 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 @media(max-width:1080px){.wrap{grid-template-columns:72px minmax(0,600px);column-gap:20px;max-width:760px}.left-rail{padding-right:8px}.rail-brand{padding:10px;width:50px}.rail-brand-name,.rail-link span:not(.rail-icon),.rail-note{display:none}.rail-link{width:50px;height:50px;justify-content:center;padding:10px}.rail-post{width:50px;height:50px;min-height:50px;padding:0;font-size:0;margin:16px 0}.rail-post span{font-size:0}.rail-post span:after{content:'+';font-size:28px}.right-rail{display:none}.hero,.section,.tools,.notice,.compose,#feed,.footer{grid-column:2}}
 @media(max-width:650px){.wrap{display:block;padding:0;max-width:600px}.left-rail{position:sticky;z-index:20;top:0;min-height:0;height:58px;padding:4px 12px;display:flex;flex-direction:row;align-items:center;justify-content:space-between;background:#ffffffed;backdrop-filter:blur(12px);border-right:0;border-bottom:1px solid var(--x-line)}.rail-brand{margin:0;padding:4px;width:auto}.rail-mark{width:32px;height:32px;font-size:23px}.rail-brand-name{display:inline;font-size:17px}.rail-nav{display:flex;gap:2px}.rail-link{display:none}.rail-link:first-child,.rail-link:nth-child(3){display:flex;width:42px;height:42px;padding:8px}.rail-link span:not(.rail-icon){display:none}.rail-icon{font-size:22px}.rail-post{margin:0;width:auto;height:38px;min-height:38px;padding:0 18px;font-size:13px}.rail-post span,.rail-post span:after{font-size:13px}.hero{padding:14px 16px 16px}.top{flex-wrap:wrap}.brand{flex:1}.brand h1{font-size:17px}.brand small{font-size:8px}.hero h2{font-size:22px;margin:18px 0 5px}.hero p{font-size:13px}.cta{min-height:38px;padding:8px 15px}.section{padding:13px 16px 10px}.tools{padding:10px 12px;display:block}.tabs{margin-bottom:5px}.status{display:block;padding:3px 3px}.notice{width:calc(100% - 24px);margin:12px}.compose{padding:15px 16px}.post,.empty{padding:15px 16px}.footer{padding:18px 16px}.cat{max-width:110px;overflow:hidden;text-overflow:ellipsis}.actions{max-width:none}.action{font-size:11px;padding:5px 7px}.right-rail{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+
+/* Full structural refresh: X-like social product, not a marketing landing page */
+:root{--x-blue:#1d9bf0;--x-ink:#0f1419;--x-muted:#536471;--x-line:#eff3f4;--x-hover:#f7f9f9;--x-bg:#fff}
+html,body{background:#fff!important;color:var(--x-ink)!important}
+.wrap{max-width:1320px!important;grid-template-columns:245px minmax(0,620px) 320px!important;column-gap:26px!important;padding:0 18px!important}
+.left-rail{border-right:1px solid var(--x-line)!important;padding-top:8px!important;padding-right:12px!important}
+.rail-brand{margin:0 0 16px!important;padding:12px!important}
+.rail-mark{background:#fff!important;color:var(--x-ink)!important;font-size:32px!important;width:40px!important;height:40px!important}
+.rail-brand-name{font-size:21px!important}
+.rail-nav{gap:2px!important}
+.rail-link{font-size:18px!important;padding:13px 15px!important;gap:17px!important}
+.rail-icon{font-size:26px!important}
+.rail-link.active{background:transparent!important;font-weight:800!important}
+.rail-link.active .rail-icon{color:var(--x-blue)}
+.rail-link:hover{background:var(--x-hover)!important}
+.rail-post{margin:18px 8px 0 2px!important;width:calc(100% - 10px)!important;background:var(--x-blue)!important;border-radius:999px!important;box-shadow:none!important}
+.rail-note{margin: auto 8px 0!important;border-top:1px solid var(--x-line)!important}
+.hero{grid-row:1!important;padding:14px 18px!important;border-bottom:1px solid var(--x-line)!important;min-height:70px!important;position:sticky!important;top:0!important;z-index:10!important;background:#ffffffed!important;backdrop-filter:blur(12px)!important}
+.top{display:flex!important;align-items:center!important;gap:12px!important;flex-wrap:nowrap!important}
+.brand-home{display:none!important;text-decoration:none;color:var(--x-ink)}
+.brand-home-mark{display:grid;place-items:center;width:35px;height:35px;border-radius:50%;font-size:25px;font-weight:850;letter-spacing:-2px}
+.brand{flex:1!important;min-width:0}
+.brand h1{font-size:19px!important;font-weight:800!important;margin:0!important;color:var(--x-ink)!important;letter-spacing:-.5px!important}
+.brand small{display:block!important;font-size:11px!important;color:var(--x-muted)!important;letter-spacing:0!important;margin-top:3px}
+.lang-switch{border:1px solid #cfd9de!important;border-radius:999px!important;background:#fff!important;color:var(--x-ink)!important;padding:8px 10px!important;max-width:130px}
+.section{grid-row:2!important;margin:0!important;padding:15px 18px 13px!important;border-bottom:1px solid var(--x-line)!important;align-items:center!important}
+.section small{font-size:10px!important;letter-spacing:1.2px!important;color:var(--x-muted)!important}
+.section h2{font-size:20px!important;margin:3px 0 0!important;font-weight:800!important;letter-spacing:-.5px!important}
+.refresh{font-size:21px!important;width:38px;height:38px;padding:0!important;color:var(--x-blue)!important;border-radius:50%!important}
+.refresh:hover{background:#e8f5fd!important}
+.tools{grid-row:3!important;display:block!important;padding:0!important;border-bottom:1px solid var(--x-line)!important}
+.feed-mode{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--x-line)}
+.feed-mode-tab{position:relative;border:0;background:#fff;color:var(--x-muted);font-size:14px;font-weight:600;padding:16px 8px;min-height:54px}
+.feed-mode-tab:hover{background:var(--x-hover)}
+.feed-mode-tab.active{color:var(--x-ink);font-weight:800}
+.feed-mode-tab.active:after{content:"";position:absolute;bottom:0;left:25%;right:25%;height:4px;border-radius:999px;background:var(--x-blue)}
+.feed-controls{padding:10px 14px 8px;display:flex;align-items:center;gap:8px}
+.tabs{flex:1;min-width:0;gap:4px!important;overflow-x:auto!important;flex-wrap:nowrap!important;scrollbar-width:none!important;padding:2px 0 6px!important}
+.tab{flex:0 0 auto;border:1px solid transparent!important;border-radius:999px!important;background:transparent!important;color:var(--x-muted)!important;padding:7px 10px!important;font-size:12px!important}
+.tab.active{background:#e8f5fd!important;color:#0b6da9!important;border-color:#d9effc!important}
+.feed-controls .lang-switch{flex:0 0 auto;width:94px;font-size:11px!important;padding:7px 8px!important}
+.status{display:block!important;padding:0 16px 9px!important;font-size:10px!important;color:var(--x-muted)!important}
+.notice{grid-row:4!important;width:auto!important;margin:10px 14px!important;border-radius:12px!important}
+.quick-compose{grid-column:2!important;grid-row:5!important;width:100%!important;display:flex!important;align-items:center!important;gap:12px!important;text-align:left!important;border:0!important;border-bottom:1px solid var(--x-line)!important;border-radius:0!important;background:#fff!important;padding:15px 18px!important;min-height:76px!important;color:var(--x-muted)!important}
+.quick-compose:hover{background:#fff!important}
+.quick-avatar{flex:0 0 43px;width:43px;height:43px;border-radius:50%;display:grid;place-items:center;background:#e8f5fd;color:var(--x-blue);font-size:22px}
+.quick-placeholder{flex:1;font-size:17px;min-width:0}
+.quick-post{background:var(--x-blue);color:white;border-radius:999px;padding:9px 17px;font-size:13px;font-weight:750}
+.compose{grid-row:6!important;border:0!important;border-bottom:1px solid var(--x-line)!important;border-radius:0!important;padding:16px 18px!important;box-shadow:none!important}
+#feed{grid-row:7!important}
+.post,.empty{padding:16px 18px!important;border-radius:0!important;border:0!important;border-bottom:1px solid var(--x-line)!important;margin:0!important;box-shadow:none!important;background:#fff!important}
+.post:hover{background:#fff!important;border-color:var(--x-line)!important}
+.post-head{align-items:flex-start!important}
+.avatar{flex:0 0 44px;width:44px!important;height:44px!important;border-radius:50%!important;background:#e8f5fd!important;color:var(--x-blue)!important}
+.author{gap:5px!important;min-height:24px}
+.author strong{font-size:14px!important;font-weight:800!important}
+.author small{font-size:13px!important}
+.content{font-size:15px!important;line-height:1.6!important;margin:8px 0 12px 54px!important;color:var(--x-ink)!important}
+.post-head .cat{margin-left:auto!important;max-width:110px;overflow:hidden;text-overflow:ellipsis}
+.actions{margin-left:48px!important;max-width:100%!important;justify-content:space-between!important;padding:3px 0 0!important;border:0!important}
+.action{font-size:12px!important;min-width:52px;justify-content:center!important;gap:7px!important;padding:6px 9px!important;color:var(--x-muted)!important}
+.action:hover{color:var(--x-blue)!important;background:#e8f5fd!important}
+.action.liked{color:#f91880!important}
+.comments{margin:12px 0 0 48px!important}
+.footer{grid-row:8!important;padding:22px 18px!important;border-top:0!important;line-height:1.8!important}
+.right-rail{padding-top:8px!important;gap:14px!important}
+.search-card{position:sticky;top:8px;z-index:2;background:#fff!important}
+.fake-search{background:#eff3f4!important;border-radius:999px!important;padding:13px 16px!important}
+.side-card{border:0!important;border-radius:16px!important;background:#f7f9f9!important;padding:17px!important}
+.side-card h3{font-size:19px!important;font-weight:800!important;letter-spacing:-.4px!important}
+.topic-shortcuts a{padding:12px 0!important}
+@media(max-width:1080px){
+ .wrap{grid-template-columns:68px minmax(0,620px)!important;max-width:780px!important;column-gap:18px!important;padding:0 12px!important}
+ .left-rail{padding-right:8px!important}
+ .rail-brand{padding:8px!important;width:48px!important}
+ .rail-brand-name,.rail-link span:not(.rail-icon),.rail-note{display:none!important}
+ .rail-link{width:48px!important;height:48px!important;justify-content:center!important;padding:8px!important;font-size:0!important}
+ .rail-post{width:48px!important;height:48px!important;min-height:48px!important;margin:16px 0!important;padding:0!important;font-size:0!important}
+ .rail-post span{font-size:0!important}
+ .rail-post span:after{content:"+";font-size:28px}
+ .right-rail{display:none!important}
+ .hero,.section,.tools,.notice,.quick-compose,.compose,#feed,.footer{grid-column:2!important}
+}
+@media(max-width:650px){
+ .wrap{display:block!important;max-width:620px!important;padding:0!important}
+ .left-rail{position:sticky!important;top:0!important;z-index:30!important;height:54px!important;min-height:54px!important;padding:4px 12px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;background:#ffffffed!important;backdrop-filter:blur(12px)!important;border:0!important;border-bottom:1px solid var(--x-line)!important}
+ .rail-brand{margin:0!important;padding:3px!important;width:auto!important}
+ .rail-mark{width:34px!important;height:34px!important;font-size:28px!important}
+ .rail-brand-name{display:inline!important;font-size:17px!important}
+ .rail-nav{display:flex!important;gap:2px!important}
+ .rail-link{display:none!important}
+ .rail-link:first-child,.rail-link:nth-child(3){display:flex!important;width:40px!important;height:40px!important;padding:8px!important;font-size:inherit!important}
+ .rail-link span:not(.rail-icon){display:none!important}
+ .rail-icon{font-size:21px!important}
+ .rail-post{width:auto!important;height:36px!important;min-height:36px!important;margin:0!important;padding:0 15px!important;font-size:12px!important}
+ .rail-post span,.rail-post span:after{font-size:12px!important}
+ .hero{position:relative!important;top:auto!important;padding:12px 15px!important;min-height:64px!important}
+ .brand-home{display:none!important}
+ .brand h1{font-size:17px!important}
+ .brand small{font-size:10px!important}
+ .lang-switch{max-width:104px!important;font-size:11px!important}
+ .section{padding:13px 15px 11px!important}
+ .feed-mode-tab{min-height:48px!important;padding:13px 8px!important}
+ .feed-controls{padding:9px 10px 5px!important;display:block!important}
+ .tabs{margin-bottom:5px!important}
+ .feed-controls .lang-switch{width:100%!important;max-width:none!important}
+ .status{padding:2px 13px 8px!important}
+ .quick-compose{padding:13px 14px!important;min-height:68px!important;gap:9px!important}
+ .quick-avatar{flex-basis:38px;width:38px;height:38px}
+ .quick-placeholder{font-size:14px!important}
+ .quick-post{padding:8px 13px!important;font-size:12px!important}
+ .compose{padding:14px!important}
+ .post,.empty{padding:14px!important}
+ .avatar{flex-basis:40px;width:40px!important;height:40px!important}
+ .content{margin-left:49px!important;font-size:14px!important}
+ .actions{margin-left:43px!important;gap:2px!important}
+ .action{min-width:0!important;font-size:11px!important;padding:5px 7px!important}
+ .comments{margin-left:43px!important}
+ .right-rail{display:none!important}
+ .footer{padding:18px 15px!important}
+}
+
 </style>
 </head>
 <body><div class="wrap">
@@ -165,9 +287,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   <button class="rail-post" id="railPost" type="button"><span data-en="Post" data-ms="Hantar">发布</span></button>
   <div class="rail-note"><strong>Tenby Circle</strong><p data-en="A space for campus life, questions and ideas." data-ms="Ruang untuk kehidupan kampus, soalan dan idea.">分享校园生活、问题与想法的空间。</p></div>
 </aside>
-<header class="hero"><div class="top"><div class="logo">✦</div><div class="brand"><h1>Tenby 校园圈</h1><small>TENBY CAMPUS COMMUNITY · 分享真实校园生活</small></div><span class="pill">学生交流社区</span><select id="languageSwitch" class="lang-switch" aria-label="Language"><option value="zh-CN">中文</option><option value="en">English</option><option value="ms">Bahasa Melayu</option></select></div><h2>校园生活的每一面，<br><em>都值得分享。</em></h2><p>聊日常、问问题、分享兴趣，也可以只是记录今天。</p><button class="cta" id="openForm">＋ 发布一条动态</button></header>
-<div class="section"><div><small id="schoolLabel">YOUR CAMPUS</small><h2>大家都在分享</h2></div><button class="refresh" id="refresh">↻ 刷新</button></div>
-<div class="tools"><div class="tabs" id="tabs"></div><select id="sortOrder" class="lang-switch" aria-label="排序"><option value="newest">最新</option><option value="popular">最热门</option></select><span class="status" id="status">正在连接数据库…</span></div>
+<header class="hero"><div class="top"><a class="brand-home" href="#feed" aria-label="Tenby Circle 首页"><span class="brand-home-mark">t.</span></a><div class="brand"><h1>Tenby 校园圈</h1><small data-en="Campus conversations, all in one place" data-ms="Perbualan kampus di satu tempat">校园里的新鲜事，都在这里</small></div><select id="languageSwitch" class="lang-switch" aria-label="Language"><option value="zh-CN">中文</option><option value="en">English</option><option value="ms">Bahasa Melayu</option></select></div></header>
+<div class="section"><div><small id="schoolLabel">TENBY CAMPUS</small><h2 data-en="Home" data-ms="Utama">首页</h2></div><button class="refresh" id="refresh" aria-label="刷新动态">↻</button></div>
+<div class="tools"><div class="feed-mode"><button class="feed-mode-tab active" type="button" data-feed-mode="for-you" data-en="For you" data-ms="Untuk anda">为你推荐</button><button class="feed-mode-tab" type="button" data-feed-mode="latest" data-en="Latest" data-ms="Terkini">最新动态</button></div><div class="feed-controls"><div class="tabs" id="tabs"></div><select id="sortOrder" class="lang-switch" aria-label="排序"><option value="newest">最新</option><option value="popular">最热门</option></select></div><span class="status" id="status">正在连接数据库…</span></div><button class="quick-compose" id="openForm" type="button"><span class="quick-avatar">✦</span><span class="quick-placeholder" data-en="What's happening on campus?" data-ms="Apa yang berlaku di kampus?">校园里有什么新鲜事？说出来吧。</span><span class="quick-post" data-en="Post" data-ms="Hantar">发布</span></button>
 <div class="notice" id="notice" hidden role="status"></div>
 <form class="compose" id="compose" hidden><h3>✍️ 发布一条动态</h3><label>选择话题<select id="category"><option value="日常分享">日常分享</option><option value="校园生活">校园生活</option><option value="学习交流">学习交流</option><option value="求助互助">求助互助</option><option value="吐槽建议">吐槽建议</option><option value="兴趣交友">兴趣交友</option><option value="其他话题">其他话题</option></select></label><label>匿名昵称<input id="nickname" maxlength="24" value="匿名同学" placeholder="例如：晚风"></label><label>想分享的内容<textarea id="content" maxlength="1000" minlength="3" required placeholder="今天发生了什么？有什么经验、问题或想法想分享？请勿发布他人隐私、学号、联系方式或未经同意的照片。"></textarea></label><div class="row"><span id="count">0/1000 · 发布后需审核</span><div><button type="button" class="refresh" id="cancel">取消</button> <button class="submit" id="send" type="submit">提交投稿</button></div></div></form>
 <div id="feed"></div><footer class="footer" id="footer">✦ <strong>Tenby Circle</strong> · 分享校园生活，连接每一个你<br>尊重不同观点，友善交流；请勿发布他人隐私、骚扰或违法内容。<br>新动态经基础审核后公开展示。</footer>
@@ -240,13 +362,14 @@ async function toggleComments(id){
 async function like(id){if(liked.has(id)){notice('每条内容每个浏览器只允许点赞一次。');return}const {error}=await supabase.rpc('increment_post_like',{post_id:id});if(error){notice('点赞失败，请稍后再试。');return}liked.add(id);localStorage.setItem('campus-liked',JSON.stringify([...liked]));const p=posts.find(x=>x.id===id);if(p)p.likes_count=(Number(p.likes_count)||0)+1;drawPosts()}
 async function report(id){const reason=prompt('请简要说明举报原因（例如：隐私泄露、骚扰、违规内容）：');if(!reason||!reason.trim())return;const {error}=await supabase.from('reports').insert({post_id:id,reason:reason.trim().slice(0,300)});notice(error?'举报提交失败，请稍后再试。':'感谢反馈，举报已提交给管理员。')}
 $('#sortOrder').onchange=()=>{sortOrder=$('#sortOrder').value;drawPosts()};
-$('#openForm').onclick=()=>{$('#compose').hidden=false;$('#content').focus();notice('')};$('#cancel').onclick=()=>$('#compose').hidden=true;$('#refresh').onclick=load;$('#content').oninput=()=>$('#count').textContent=$('#content').value.length+'/1000 · 发布后需审核';
+$('#openForm').onclick=()=>{$('#compose').hidden=false;$('#compose').scrollIntoView({behavior:'smooth',block:'center'});$('#content').focus();notice('')};$('#cancel').onclick=()=>$('#compose').hidden=true;$('#refresh').onclick=load;$('#content').oninput=()=>$('#count').textContent=$('#content').value.length+'/1000 · 发布后需审核';
 $('#compose').onsubmit=async e=>{e.preventDefault();const content=$('#content').value.trim();if(content.length<3){notice('请至少输入 3 个字。');return}$('#send').disabled=true;$('#send').textContent='提交中…';const {error}=await supabase.from('posts').insert({category:$('#category').value,nickname:$('#nickname').value.trim().slice(0,24)||'匿名同学',content,status:'pending'});$('#send').disabled=false;$('#send').textContent='提交投稿';if(error){notice('发布失败，请稍后再试。');console.error(error)}else{$('#content').value='';$('#count').textContent='0/1000 · 发布后需审核';$('#compose').hidden=true;notice('发布成功！为保护社区环境，动态通过审核后会显示。')}};
 drawTabs();load();
 
 // X-style rail interactions, without changing the existing post and moderation logic.
-document.querySelector('#railPost')?.addEventListener('click',()=>document.querySelector('#openForm')?.click());
-document.querySelector('#railCompose')?.addEventListener('click',()=>{document.querySelector('#openForm')?.click()});
+document.querySelector('#railPost')?.addEventListener('click',()=>document.querySelector('#compose')?.scrollIntoView({behavior:'smooth',block:'center'}));
+document.querySelector('#railCompose')?.addEventListener('click',()=>{document.querySelector('#compose').hidden=false;document.querySelector('#compose').scrollIntoView({behavior:'smooth',block:'center'});document.querySelector('#content').focus()});
+document.querySelectorAll('[data-feed-mode]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-feed-mode]').forEach(x=>x.classList.toggle('active',x===button));if(button.dataset.feedMode==='latest'){sortOrder='newest';document.querySelector('#sortOrder').value='newest';}drawPosts();}));
 document.querySelectorAll('[data-rail-cat]').forEach(link=>link.addEventListener('click',()=>{
  const target=link.getAttribute('data-rail-cat');
  const tab=[...document.querySelectorAll('#tabs .tab')].find(b=>b.dataset.cat===target);
