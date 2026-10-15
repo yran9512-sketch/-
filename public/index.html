@@ -199,8 +199,8 @@ html,body{background:#fff!important;color:var(--x-ink)!important}
 .quick-avatar{flex:0 0 43px;width:43px;height:43px;border-radius:50%;display:grid;place-items:center;background:#e8f5fd;color:var(--x-blue);font-size:22px}
 .quick-placeholder{flex:1;font-size:17px;min-width:0}
 .quick-post{background:var(--x-blue);color:white;border-radius:999px;padding:9px 17px;font-size:13px;font-weight:750}
-.compose{grid-row:6!important;border:0!important;border-bottom:1px solid var(--x-line)!important;border-radius:0!important;padding:16px 18px!important;box-shadow:none!important}
-#feed{grid-row:7!important}
+.compose{grid-row:auto!important;border:0!important;border-bottom:1px solid var(--x-line)!important;border-radius:0!important;padding:16px 18px!important;box-shadow:none!important}
+#feed{grid-row:auto!important}
 .post,.empty{padding:16px 18px!important;border-radius:0!important;border:0!important;border-bottom:1px solid var(--x-line)!important;margin:0!important;box-shadow:none!important;background:#fff!important}
 .post:hover{background:#fff!important;border-color:var(--x-line)!important}
 .post-head{align-items:flex-start!important}
@@ -215,7 +215,7 @@ html,body{background:#fff!important;color:var(--x-ink)!important}
 .action:hover{color:var(--x-blue)!important;background:#e8f5fd!important}
 .action.liked{color:#f91880!important}
 .comments{margin:12px 0 0 48px!important}
-.footer{grid-row:8!important;padding:22px 18px!important;border-top:0!important;line-height:1.8!important}
+.footer{grid-row:auto!important;padding:22px 18px!important;border-top:0!important;line-height:1.8!important}
 .right-rail{padding-top:8px!important;gap:14px!important}
 .search-card{position:sticky;top:8px;z-index:2;background:#fff!important}
 .fake-search{background:#eff3f4!important;border-radius:999px!important;padding:13px 16px!important}
@@ -367,7 +367,7 @@ $('#compose').onsubmit=async e=>{e.preventDefault();const content=$('#content').
 drawTabs();load();
 
 // X-style rail interactions, without changing the existing post and moderation logic.
-document.querySelector('#railPost')?.addEventListener('click',()=>document.querySelector('#compose')?.scrollIntoView({behavior:'smooth',block:'center'}));
+document.querySelector('#railPost')?.addEventListener('click',()=>{const form=document.querySelector('#compose');form.hidden=false;form.scrollIntoView({behavior:'smooth',block:'center'});document.querySelector('#content').focus()});
 document.querySelector('#railCompose')?.addEventListener('click',()=>{document.querySelector('#compose').hidden=false;document.querySelector('#compose').scrollIntoView({behavior:'smooth',block:'center'});document.querySelector('#content').focus()});
 document.querySelectorAll('[data-feed-mode]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-feed-mode]').forEach(x=>x.classList.toggle('active',x===button));if(button.dataset.feedMode==='latest'){sortOrder='newest';document.querySelector('#sortOrder').value='newest';}drawPosts();}));
 document.querySelectorAll('[data-rail-cat]').forEach(link=>link.addEventListener('click',()=>{
