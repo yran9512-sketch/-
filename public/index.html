@@ -55,15 +55,26 @@ drawTabs();load();
  const keys=Object.keys(map).sort((a,b)=>b.length-a.length);
  function tr(s){let out=s;for(const k of keys){if(k)out=out.split(k).join(map[k]);}return out;}
  function skip(node){return !!node.parentElement?.closest('.content,.body,.author,.name,[data-user-content]');}
+ function setTranslatedText(node){
+  const original=node.nodeValue;
+  if(skip(node)||!original.trim())return;
+  const translated=tr(original);
+  if(translated!==original)node.nodeValue=translated;
+ }
  function walk(root){
-  if(root.nodeType===Node.TEXT_NODE){if(!skip(root)&&root.nodeValue.trim())root.nodeValue=tr(root.nodeValue);return;}
+  if(root.nodeType===Node.TEXT_NODE){setTranslatedText(root);return;}
   if(root.nodeType!==Node.ELEMENT_NODE)return;
   if(root.matches('script,style,textarea,.content,.body,.author,.name,[data-user-content]'))return;
-  for(const attr of ['placeholder','aria-label','title'])if(root.hasAttribute(attr))root.setAttribute(attr,tr(root.getAttribute(attr)));
+  for(const attr of ['placeholder','aria-label','title']){
+   if(root.hasAttribute(attr)){
+    const original=root.getAttribute(attr), translated=tr(original);
+    if(translated!==original)root.setAttribute(attr,translated);
+   }
+  }
   for(const child of root.childNodes)walk(child);
  }
  function apply(){walk(document.body);}
  apply();
- new MutationObserver(ms=>{for(const m of ms){if(m.type==='childList')m.addedNodes.forEach(walk);else if(m.type==='characterData'&&!skip(m.target))m.target.nodeValue=tr(m.target.nodeValue);}}).observe(document.body,{subtree:true,childList:true,characterData:true});
+ new MutationObserver(ms=>{for(const m of ms){if(m.type==='childList')m.addedNodes.forEach(walk);else if(m.type==='characterData')setTranslatedText(m.target);}}).observe(document.body,{subtree:true,childList:true,characterData:true});
 })();
 </script></body></html>
